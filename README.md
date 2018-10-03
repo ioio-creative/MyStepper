@@ -1,5 +1,5 @@
 # MyStepper
-MyStepper.cpp - Library for encapsulating AccelStepper. The MyStepper class depends heavily on the class AccelStepper. 
+MyStepper.cpp - Library for encapsulating AccelStepper for Arduino. The MyStepper class depends heavily on the class AccelStepper. 
 https://www.airspayce.com/mikem/arduino/AccelStepper/index.html 
 
 ## TODO

@@ -98,7 +98,7 @@ class MyStepper
 };
 
 // http://forum.arduino.cc/index.php?topic=37804.0
-static inline int8_t sgn(long val)
+static inline int8_t sgn(float val)
 {
 	if (val < 0)
 	{
@@ -114,7 +114,7 @@ static inline int8_t sgn(long val)
 	}
 }
 
-static inline int8_t compareAbs(long val1, long val2)
+static inline int8_t compareAbs(float val1, float val2)
 {
 	if (abs(val1) < abs(val2))
 	{

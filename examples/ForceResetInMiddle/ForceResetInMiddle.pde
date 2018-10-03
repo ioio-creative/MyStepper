@@ -11,7 +11,7 @@ const int timeStep = 100;  // ms
 const long stepper1PositionToGo = 10000;
 const float stepper1TimeToComplete = 5;  // s
 bool isPrintTimeStepToSerial = true;
-const float minReturnSpeed = 0;
+//const float minReturnSpeed = 0;
 
 const float timeToInterrupt = 4;
 bool isProcessReset = false;
@@ -21,7 +21,7 @@ void setup()
 {  
   Serial.begin(9600);
 
-  stepper1.setMinReturnSpeed(minReturnSpeed);  // should be positive
+  //stepper1.setMinReturnSpeed(minReturnSpeed);  // should be positive
   stepper1.reset(stepper1PositionToGo, stepper1TimeToComplete);
   stepper1.setTimeStepInMillis(timeStep);
   stepper1.setIsPrintTimeStepToSerial(isPrintTimeStepToSerial);

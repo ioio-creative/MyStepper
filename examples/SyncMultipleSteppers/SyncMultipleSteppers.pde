@@ -4,7 +4,7 @@ MyStepper stepper1(MyStepper::DRIVER, 5, 4);
 MyStepper stepper2(MyStepper::DRIVER, 3, 2);
 
 const int timeStep = 100;  // ms
-const float minReturnSpeed = 0;
+//const float minReturnSpeed = 0;
 
 // about 1600 = 1 revolution for stepper 1
 
@@ -24,12 +24,12 @@ void setup()
 {
   Serial.begin(9600);
 
-  stepper1.setMinReturnSpeed(minReturnSpeed);  // should be positive
+  //stepper1.setMinReturnSpeed(minReturnSpeed);  // should be positive
   stepper1.reset(stepper1DistanceToMove, stepper1TimeToComplete);
   stepper1.setTimeStepInMillis(timeStep);
   stepper1.setIsPrintTimeStepToSerial(isStepper1PrintTimeStepToSerial);
 
-  stepper2.setMinReturnSpeed(minReturnSpeed);  // should be positive
+  //stepper2.setMinReturnSpeed(minReturnSpeed);  // should be positive
   stepper2.reset(stepper2DistanceToMove, stepper2TimeToComplete);
   stepper2.setTimeStepInMillis(timeStep);
   stepper2.setIsPrintTimeStepToSerial(isStepper2PrintTimeStepToSerial);

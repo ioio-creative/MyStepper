@@ -246,7 +246,7 @@ float MyStepper::computeSpeedByTimeSinceLastReset(long currTimeStampInMillis)
 		}
 		else
 		{
-			if (abs(_lastSpeed) < abs(_minReturnSpeed))
+			if (compareAbs(_lastSpeed, _minReturnSpeed) == -1)
 			{
 				return _signOfLinearAccl * _minReturnSpeed;
 			}
@@ -265,22 +265,25 @@ float MyStepper::computeSpeedByDistanceMovedSinceLastReset()
 
 float MyStepper::computeSpeedByDistanceMovedSinceLastReset(long distMoved)
 {
-	float speedComputed;
+	float speedComputed;	
 
 	// by v^2 = u^2 + 2 a s
 	if (compareAbs(distMoved, _halfTotDist) == -1)  // accelerate phase
-	{
-		speedComputed = _signOfLinearAccl * sqrt(abs(2 * _linearAccl * distMoved));
+	{		
+		speedComputed = _signOfLinearAccl * sqrt(abs(2 * _linearAccl * distMoved));		
 	}
 	else  // decelerate phase
-	{
+	{				
 		speedComputed = _signOfLinearAccl * sqrt(sq(_theoreticalMaxSpeed) - abs(2 * _linearAccl * (distMoved - _halfTotDist)));
 	}
 
+	// fail safe
 	if (speedComputed == 0)
 	{
 		speedComputed = _lastSpeed;
 	}
+
+	return speedComputed;
 }
 
 /* end of private methods */
