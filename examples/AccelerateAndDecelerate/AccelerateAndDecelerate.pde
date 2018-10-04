@@ -1,7 +1,7 @@
 #include <MyStepper.h>
 
 MyStepper stepper1(MyStepper::DRIVER, 5, 4);
-//MyStepper stepper2(MyStepper::DRIVER, 3, 2);
+//MyStepper stepper2(MyStepper::DRIVER, 9, 8);
 
 const int timeStep = 100;  // ms
 
@@ -11,13 +11,11 @@ const int timeStep = 100;  // ms
 const long stepper1PositionToGo = 5000;
 const float stepper1TimeToComplete = 10;  // s
 bool isPrintTimeStepToSerial = true;
-//const float minReturnSpeed = 0;
 
 void setup()
 {  
   Serial.begin(9600);
-
-  //stepper1.setMinReturnSpeed(minReturnSpeed);  // should be positive
+  
   stepper1.setTimeStepInMillis(timeStep);
   stepper1.setIsPrintTimeStepToSerial(isPrintTimeStepToSerial);
   stepper1.reset(stepper1PositionToGo, stepper1TimeToComplete);
@@ -31,8 +29,8 @@ void loop()
   }
   else
   {
-    stepper1.printStatusToSerial();
     Serial.println("Stopped");
+    stepper1.printEndStatusToSerial();    
     stepper1.reset(stepper1.currentPosition() == 0 ? stepper1PositionToGo : 0, stepper1TimeToComplete);    
   }
 }

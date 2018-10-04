@@ -1,10 +1,9 @@
 #include <MyStepper.h>
 
 MyStepper stepper1(MyStepper::DRIVER, 5, 4);
-//MyStepper stepper2(MyStepper::DRIVER, 3, 2);
+//MyStepper stepper2(MyStepper::DRIVER, 9, 8);
 
 const int timeStep = 100;  // ms
-//const float minReturnSpeed = 0;
 
 // about 1600 = 1 revolution for stepper 1
 
@@ -18,8 +17,7 @@ bool isStepper1Stopped = false;
 void setup()
 {
   Serial.begin(9600);
-
-  //stepper1.setMinReturnSpeed(minReturnSpeed);  // should be positive
+  
   stepper1.reset(stepper1DistanceToMove, stepper1TimeToComplete);
   stepper1.setTimeStepInMillis(timeStep);
   stepper1.setIsPrintTimeStepToSerial(isStepper1PrintTimeStepToSerial);
@@ -31,10 +29,12 @@ void loop()
   {
     stepper1.myRun();
   }
-  else {    
+  else {
+    Serial.println("Stopped");
+    stepper1.printEndStatusToSerial();
     int nextPosition = random(5000,10000);
     int nextTimespan = random(5, 10);
-    Serial.println("Next Pos: " + String(nextPosition, DEC) + ", Next Timespan:" + String(nextTimespan, DEC));
+    Serial.println("Next Pos: " + numericToString(nextPosition) + ", Next Timespan: " + numericToString(nextTimespan));
     stepper1.reset(nextPosition, nextTimespan);
   }
 }

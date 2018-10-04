@@ -59,13 +59,6 @@ bool MyStepper::myRun()
 			}
 		}
 	}
-	else
-	{
-		if (_isPrintTimeStepToSerial)
-		{
-			printEndStatusToSerial();
-		}
-	}	
 	
 	return runSpeedResult;
 }
@@ -130,7 +123,8 @@ void MyStepper::printStatusToSerial()
 
 void MyStepper::printEndStatusToSerial()
 {
-	Serial.println(numericToString(distanceMovedSinceLastReset()) + " moved in " + numericToString(_processStartTimeStampInMillis) + " ms.");
+	Serial.println("Expected: " + numericToString(_totDist) + " dist. units moved in " + numericToString(_totTime * 1000) + " ms.");
+	Serial.println("Actual: " + numericToString(distanceMovedSinceLastReset()) + " dist. units moved in " + numericToString(getTimeSinceLastResetInMillis()) + " ms.");
 }
 
 bool MyStepper::isCompleteTotDist()

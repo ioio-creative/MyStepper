@@ -24,6 +24,7 @@ maxSpeed	KEYWORD2
 currentPosition	KEYWORD2
 getTotDist	KEYWORD2
 printStatusToSerial	KEYWORD2
+printEndStatusToSerial KEYWORD2
 isCompleteTotDist	KEYWORD2
 isCompleteHalfTotDist	KEYWORD2
 setMinReturnSpeed	KEYWORD2
