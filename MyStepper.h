@@ -46,6 +46,8 @@ class MyStepper
 	long getTotDist();
 	
 	void printStatusToSerial();
+
+	void printEndStatusToSerial();
 	
 	bool isCompleteTotDist();
 	
@@ -128,6 +130,10 @@ static inline int8_t compareAbs(float val1, float val2)
 	{
 		return 1;
 	}
+}
+
+static inline String numericToString(float val) {
+	return String(val, DEC);
 }
 
 #endif

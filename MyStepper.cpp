@@ -33,30 +33,39 @@ bool MyStepper::myRun()
 	if (!isCompleteTotDist())
 	{
 		runSpeedResult = _accelStepper.runSpeed();
+
+		long currTimeStampInMillis = millis();
+		if (currTimeStampInMillis - _processStartTimeStampInMillis > _nextUpdateTimeStepInMillis)
+		{	
+			long distanceMoved = distanceMovedSinceLastReset();
+			_lastSpeed = speed();  // needed in computeSpeedByTimeSinceLastReset() / computeSpeedByDistanceMovedSinceLastReset()
+
+			float newSpeed;
+			if (distanceMoved == 0)
+			{				
+				newSpeed = computeSpeedByTimeSinceLastReset(currTimeStampInMillis);
+			}
+			else
+			{
+				newSpeed = computeSpeedByDistanceMovedSinceLastReset(distanceMoved);
+			}
+			_accelStepper.setSpeed(newSpeed);
+
+			_nextUpdateTimeStepInMillis += _timeStepInMillis;
+			
+			if (_isPrintTimeStepToSerial)
+			{
+				printStatusToSerial();
+			}
+		}
 	}
-
-	long currTimeStampInMillis = millis();
-	if (currTimeStampInMillis - _processStartTimeStampInMillis > _nextUpdateTimeStepInMillis)
-	{	
-		long distanceMoved = distanceMovedSinceLastReset();
-		_lastSpeed = speed();  // needed in computeSpeedByTimeSinceLastReset() / computeSpeedByDistanceMovedSinceLastReset()
-
-		if (distanceMoved == 0)
-		{				
-			_accelStepper.setSpeed(computeSpeedByTimeSinceLastReset(currTimeStampInMillis));
-		}
-		else
-		{
-			_accelStepper.setSpeed(computeSpeedByDistanceMovedSinceLastReset(distanceMoved));			
-		}
-
-		_nextUpdateTimeStepInMillis += _timeStepInMillis;
-		
+	else
+	{
 		if (_isPrintTimeStepToSerial)
 		{
-			printStatusToSerial();
+			printEndStatusToSerial();
 		}
-	}
+	}	
 	
 	return runSpeedResult;
 }
@@ -116,7 +125,12 @@ long MyStepper::getTotDist()
 
 void MyStepper::printStatusToSerial()
 {
-	Serial.println(String(millis() - _processStartTimeStampInMillis, DEC) + ", " + String(currentPosition(), DEC) + ", " + String(speed(), DEC));
+	Serial.println(numericToString(millis() - _processStartTimeStampInMillis) + ", " + numericToString(currentPosition()) + ", " + numericToString(speed());
+}
+
+void MyStepper::printEndStatusToSerial()
+{
+	Serial.println(numericToString(distanceMovedSinceLastReset()) + " moved in " + numericToString(_processStartTimeStampInMillis) + " ms.";
 }
 
 bool MyStepper::isCompleteTotDist()
