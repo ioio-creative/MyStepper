@@ -125,12 +125,12 @@ long MyStepper::getTotDist()
 
 void MyStepper::printStatusToSerial()
 {
-	Serial.println(numericToString(millis() - _processStartTimeStampInMillis) + ", " + numericToString(currentPosition()) + ", " + numericToString(speed());
+	Serial.println(numericToString(millis() - _processStartTimeStampInMillis) + ", " + numericToString(currentPosition()) + ", " + numericToString(speed()));
 }
 
 void MyStepper::printEndStatusToSerial()
 {
-	Serial.println(numericToString(distanceMovedSinceLastReset()) + " moved in " + numericToString(_processStartTimeStampInMillis) + " ms.";
+	Serial.println(numericToString(distanceMovedSinceLastReset()) + " moved in " + numericToString(_processStartTimeStampInMillis) + " ms.");
 }
 
 bool MyStepper::isCompleteTotDist()
