@@ -54,9 +54,9 @@ void loop()
     Serial.println("Stopper 2:");
     stepper2.printEndStatusToSerial();
     
-    int nextStepper1Position = random(5000,10000);
-    int nextStepper2Position = random(5000,10000);
-    float nextTimespan = random(5, 10);
+    int nextStepper1Position = random(5000, 30000);
+    int nextStepper2Position = random(5000, 30000);
+    float nextTimespan = random(15, 40);
     Serial.println("Next Timespan: " + String(nextTimespan, DEC));
     Serial.println("Next Pos 1: " + String(nextStepper1Position, DEC));
     Serial.println("Next Pos 2: " + String(nextStepper2Position, DEC));
